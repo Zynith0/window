@@ -53,7 +53,7 @@ func Square(row, col, count int) (int, int, int) {
 		count = 0
 	}
 
-	fmt.Println("count :", count)
+	fmt.Println("count: ", count)
 
 	return row, col, count
 }
