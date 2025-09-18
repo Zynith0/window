@@ -3,6 +3,8 @@ package window
 import (
 	"net"
 	"strconv"
+
+	"github.com/Zynith0/window/internal/tcpHandler"
 )
 
 type Window struct {
@@ -21,7 +23,7 @@ func NewWindow(intWidth, intHeight int) Window {
 	return win
 }
 
-func SetString(str string, rowInt, colInt int, conn net.Conn) Window {
+func SetString(str string, rowInt, colInt int, conn net.Conn) {
 	var win Window
 
 	row := strconv.Itoa(rowInt)
@@ -29,5 +31,5 @@ func SetString(str string, rowInt, colInt int, conn net.Conn) Window {
 
 	win.String = "<cmd>lua vim.api.nvim_buf_set_text(0, " +  row + ", " +  col + ", " + row + ", " + col + ", " + "{ " + "'" + str + "'" + " }" + ")<CR>"
 
-	return win
+	tcphandler.Echo(conn, win.String)
 }

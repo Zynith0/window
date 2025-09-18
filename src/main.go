@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	// "strings"
 	"time"
 	"github.com/Zynith0/window/internal/tcpHandler"
 	"github.com/Zynith0/window/pkg/tcp"
@@ -28,12 +27,33 @@ func main() {
 		tcphandler.Echo(conn, win.Cmd)
 
 		count := 0
+		row := 5
+		col := 5
 		for {
 			<- ticker.C
-			winString := window.SetString("x", 3, count, conn)
-			tcphandler.Echo(conn, winString.String)
-			fmt.Println(winString.String)
-			count++
+			window.SetString("x", row, col, conn)
+			row, col, count = Square(row, col, count)
+			fmt.Printf("row: %v col: %v\n", row, col)
 		}
 	}
+}
+
+func Square(row, col, count int) (int, int, int) {
+	count++
+
+	if count <= 16 {
+		row++
+	} else if count > 16 && count <= 76 {
+		col++
+	} else if count > 76 && count <= 92 {
+		row--
+	} else if count > 92 && count <= 152 {
+		col--
+	} else {
+		count = 0
+	}
+
+	fmt.Println("count :", count)
+
+	return row, col, count
 }
