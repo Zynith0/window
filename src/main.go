@@ -3,7 +3,8 @@ package main
 import (
 	"fmt"
 	"time"
-	"github.com/Zynith0/window/internal/tcpHandler"
+
+	tcphandler "github.com/Zynith0/window/internal/tcpHandler"
 	"github.com/Zynith0/window/pkg/tcp"
 	"github.com/Zynith0/window/pkg/window"
 )
@@ -30,7 +31,7 @@ func main() {
 		row := 5
 		col := 5
 		for {
-			<- ticker.C
+			<-ticker.C
 			window.SetString("x", row, col, conn)
 			row, col, count = Square(row, col, count)
 			fmt.Printf("row: %v col: %v\n", row, col)
